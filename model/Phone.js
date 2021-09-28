@@ -1,7 +1,5 @@
 const fs = require('fs')
-const { resolve } = require('path')
 const path = require('path')
-
 const { v4: uuid } = require('uuid')
 
 class Product {
@@ -23,11 +21,11 @@ class Product {
     }
 
     async save() {
-        const product = await Product.getAll()
-        product.push(this.toJSON())
+        const phones = await Phone.getAll()
+        phones.push(this.toJSON())
         return new Promise((resolve, reject) => {
             fs.writeFile(path.join(__dirname, '..', 'data', 'db.json'),
-                JSON.stringify(product), /*  Stringda jo'natish */
+                JSON.stringify(phones), /*  Stringda jo'natish */
                 (err) => {
                     if (err) {
                         reject(err);
@@ -39,17 +37,17 @@ class Product {
                 })
         })
     }
-    // static getAll() {
-    //     return new Promise((resolve, reject) => {
-    //         fs.readFile(path.join(__dirname, '..', 'data', 'db.json'), 'utf-8', (err, data) => {
-    //             if (err) {
-    //                 reject(err)
-    //             } else {
-    //                 resolve(JSON.parse(data)) // Massivda
-    //             }
-    //         })
-    //     })
-    // }
+    static getAll() {
+        return new Promise((resolve, reject) => {
+            fs.readFile(path.join(__dirname, '..', 'data', 'db.json'), 'utf-8', (err, data) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(JSON.parse(data)) // Massivda
+                }
+            })
+        })
+    }
 }
 
-module.exports = Product
+module.exports = Phone

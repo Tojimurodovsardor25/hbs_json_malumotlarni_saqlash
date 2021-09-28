@@ -3,13 +3,13 @@ const app = express()
 const exphbs = require('express-handlebars')
 const path = require('path')
 
+app.use(express.static(path.join(__dirname, 'public')))
 
 // Routes
 const homeRouter = require('./routes/home')
 const contactRouter = require('./routes/contact')
 const addRouter = require('./routes/add')
-const newRouter = require('./routes/newProduct')
-app.use(express.static(path.join(__dirname, 'public')))
+const newRouter = require('./routes/newPhone')
 
 // post zaproslari uchun funlsiya
 app.use(express.urlencoded({ extended: true }))
@@ -24,7 +24,7 @@ app.set('view engine', 'hbs')
 app.set('views', 'views')
 
 app.use('/', homeRouter)
-app.use('/contact', contactRouter)
+app.use('/contact', contactRouter)  
 app.use('/add', addRouter)
 app.use('/new', newRouter)
 
